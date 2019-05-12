@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 import SDWebImage
 import SwiftyJSON
-private let reuseIdentifier = "Cell"
+private let reuseIdentifier = "homeCollectionCell"
 
 class HomeCollectionViewController: UICollectionViewController {
       var movies : [Movie]!;
@@ -18,8 +18,8 @@ class HomeCollectionViewController: UICollectionViewController {
       let dataLayer : DataLayer = DataLayer(appDelegate: UIApplication.shared.delegate as! AppDelegate)
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.clearsSelectionOnViewWillAppear = false
-        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        //self.clearsSelectionOnViewWillAppear = false
+        //self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         movies = []
         DispatchQueue.main.async
             {
@@ -100,7 +100,6 @@ class HomeCollectionViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! MovieCollectionViewCell
-        //             cell.poster_image_view.sd_setImage(with: URL(string: fullUrl), placeholderImage: UIImage(named: "placeholder.png"))
         let image = movies[indexPath.row].fullUrl
         cell.moviePosterImage.sd_setImage(with: URL(string: image), placeholderImage: UIImage(named: "placeholder.jpg"))
         // Configure the cell
