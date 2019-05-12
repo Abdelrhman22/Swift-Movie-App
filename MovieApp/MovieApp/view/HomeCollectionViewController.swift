@@ -112,6 +112,9 @@ class HomeCollectionViewController: UICollectionViewController {
         let height = width * 275 / 185 //ratio
         return CGSize(width: width, height: height)
     }
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(movies[indexPath.row].title)
+    }
     // MARK: UICollectionViewDelegate
 
     /*
