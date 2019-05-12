@@ -34,7 +34,6 @@ class DataLayer{
         movieObj.setValue(movie.releaseDate, forKey: MoviesEntity.releaseDate.rawValue)
         movieObj.setValue(movie.reviewURL, forKey: MoviesEntity.reviewUrl.rawValue)
         movieObj.setValue(movie.voteAverage, forKey: MoviesEntity.voteAverage.rawValue)
-        
         print("Added to CoreData!")
         do {
             try managedContext?.save()
@@ -43,6 +42,29 @@ class DataLayer{
             return false
         }
         return true
+    }
+    //*****************************************************************************************
+    func getMovieDataById(id : Int) -> Movie {
+        let movie : Movie = Movie()
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: MoviesEntity.entityName.rawValue)
+        fetchRequest.predicate = NSPredicate(format: "\(MoviesEntity.id.rawValue) == %i", id)
+        
+        do {
+            let fetchedMovies = try managedContext?.fetch(fetchRequest)
+            for item in fetchedMovies!{
+                movie.id = (item.value(forKey: MoviesEntity.id.rawValue) as! Int?)!
+                movie.fullUrl = (item.value(forKey: MoviesEntity.posterPath.rawValue) as! String?)!
+                movie.title = (item.value(forKey: MoviesEntity.title.rawValue) as! String?)!
+                movie.overview = (item.value(forKey: MoviesEntity.overview.rawValue) as! String?)!
+                movie.releaseDate = (item.value(forKey: MoviesEntity.releaseDate.rawValue) as! String?)!
+                movie.voteAverage = (item.value(forKey: MoviesEntity.voteAverage.rawValue) as! Float?)!
+                movie.reviewURL = (item.value(forKey: MoviesEntity.reviewUrl.rawValue) as! String?)!
+            }
+            
+        } catch let error as NSError {
+            print (error)
+        }
+        return movie
     }
     //*****************************************************************************************
     func printMovie(movie : Movie)-> Void
