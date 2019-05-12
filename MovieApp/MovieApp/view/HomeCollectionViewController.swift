@@ -34,17 +34,17 @@ class HomeCollectionViewController: UICollectionViewController {
                             for index in 0..<self.arrRes.count{
                                 let dict = self.arrRes[index]
                                 let movieObject = Movie()
-                                let movieId = dict["id"] as! Int
+                                let movieId = dict[APIMovie.id.rawValue] as! Int
                                 movieObject.id = movieId
-                                let imgUrl = dict["poster_path"] as? String
+                                let imgUrl = dict[APIMovie.posterPath.rawValue] as? String
                                 let fullUrl = "https://image.tmdb.org/t/p/w185/"+imgUrl!
                                 movieObject.fullUrl = fullUrl
-                                movieObject.title = (dict["title"] as? String)!
-                                movieObject.overview = (dict["overview"]as? String)!
-                                movieObject.releaseDate = (dict["release_date"]as? String)!
+                                movieObject.title = (dict[APIMovie.title.rawValue] as? String)!
+                                movieObject.overview = (dict[APIMovie.overview.rawValue]as? String)!
+                                movieObject.releaseDate = (dict[APIMovie.releaseDate.rawValue]as? String)!
                                 let reviewURL = "https://api.themoviedb.org/3/movie/\(movieId)/reviews?api_key=dc9a86621980e480855fa9b593c738e7"
                                 movieObject.reviewURL = reviewURL
-                                movieObject.voteAverage = (dict["vote_average"] as? NSNumber)?.floatValue ?? 0
+                                movieObject.voteAverage = (dict[APIMovie.voteAverage.rawValue] as? NSNumber)?.floatValue ?? 0
                                 self.dataLayer.printMovie(movie: movieObject)
                                 self.movies.append(movieObject)
                                 DispatchQueue.main.async
