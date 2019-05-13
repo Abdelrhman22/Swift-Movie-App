@@ -34,6 +34,7 @@ class DataLayer{
         movieObj.setValue(movie.releaseDate, forKey: MoviesEntity.releaseDate.rawValue)
         movieObj.setValue(movie.reviewURL, forKey: MoviesEntity.reviewUrl.rawValue)
         movieObj.setValue(movie.voteAverage, forKey: MoviesEntity.voteAverage.rawValue)
+        movieObj.setValue(movie.trailerURL, forKey: MoviesEntity.trailerUrl.rawValue)
         print("Added to CoreData!")
         do {
             try managedContext?.save()
@@ -59,6 +60,7 @@ class DataLayer{
                 movie.releaseDate = (item.value(forKey: MoviesEntity.releaseDate.rawValue) as! String?)!
                 movie.voteAverage = (item.value(forKey: MoviesEntity.voteAverage.rawValue) as! Float?)!
                 movie.reviewURL = (item.value(forKey: MoviesEntity.reviewUrl.rawValue) as! String?)!
+                movie.trailerURL = (item.value(forKey: MoviesEntity.trailerUrl.rawValue) as! String?)!
             }
             
         } catch let error as NSError {
@@ -76,7 +78,45 @@ class DataLayer{
      print("releaseDate is \(movie.releaseDate)")
      print("reviewURL is \(movie.reviewURL)")
      print("voteAverage is \(movie.voteAverage)")
+     print("trailerURL is \(movie.trailerURL)")
      print("------------------------------------------")
     }
-    //******************************************************************************************
+    //*********************************************************************************
+    // check if this movie exists in CoreData
+    func isMovieExists(id: Int) -> Bool
+    {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: MoviesEntity.entityName.rawValue)
+        fetchRequest.predicate = NSPredicate(format: "\(MoviesEntity.id.rawValue) == %i", id)
+        
+        var entitiesCount = 0
+        
+        do {
+            entitiesCount = try managedContext!.count(for: fetchRequest)
+        }
+        catch {
+            print("error executing fetch request: \(error)")
+        }
+        
+        return entitiesCount > 0
+    }
+    //*************************************************************************************
+    // to delete movie from CoreData
+    func deleteMovie(id: Int) -> Bool {
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: MoviesEntity.entityName.rawValue)
+        fetchRequest.predicate = NSPredicate(format: "\(MoviesEntity.id.rawValue) == %i", id)
+        
+        do {
+            let fetchedMovies = try managedContext?.fetch(fetchRequest)
+            for item in fetchedMovies!{
+                managedContext?.delete(item)
+            }
+            try managedContext?.save()
+            
+        } catch let error as NSError {
+            print (error)
+            return false
+        }
+        return true
+    }
+    //*************************************************************************************
 }

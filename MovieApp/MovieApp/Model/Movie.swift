@@ -16,6 +16,7 @@ class Movie : NSObject
     var releaseDate : String = ""
     var reviewURL : String = ""
     var voteAverage : Float = 0.0
+    var trailerURL : String = ""
     
     override init ()
     {
@@ -26,6 +27,7 @@ class Movie : NSObject
         self.releaseDate = ""
         self.reviewURL = ""
         self.voteAverage = 0.0
+        self.trailerURL = ""
     }
     
 }

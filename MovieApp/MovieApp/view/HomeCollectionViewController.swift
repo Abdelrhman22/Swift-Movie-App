@@ -46,6 +46,8 @@ class HomeCollectionViewController: UICollectionViewController {
                                 movieObject.releaseDate = (dict[APIMovie.releaseDate.rawValue]as? String)!
                                 let reviewURL = "https://api.themoviedb.org/3/movie/\(movieId)/reviews?api_key=dc9a86621980e480855fa9b593c738e7"
                                 movieObject.reviewURL = reviewURL
+                                let trailerURL = "https://api.themoviedb.org/3/movie/\(movieId)/videos?api_key=dc9a86621980e480855fa9b593c738e7"
+                                movieObject.trailerURL = trailerURL
                                 movieObject.voteAverage = (dict[APIMovie.voteAverage.rawValue] as? NSNumber)?.floatValue ?? 0
                                 self.dataLayer.printMovie(movie: movieObject)
                                 self.movies.append(movieObject)
@@ -83,7 +85,7 @@ class HomeCollectionViewController: UICollectionViewController {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
-      //  self.destinationVC = segue.destination as! MovieDetailsViewController
+        self.destinationVC = segue.destination as! MovieDetailsViewController
     }
     
 

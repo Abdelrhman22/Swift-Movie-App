@@ -17,4 +17,5 @@ enum MoviesEntity : String{
     case releaseDate = "releaseDate"
     case reviewUrl = "reviewUrl"
     case voteAverage = "voteAverage"
+    case trailerUrl = "trailerUrl"
 }
