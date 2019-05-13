@@ -7,6 +7,82 @@
 //
 
 import Foundation
-class NetworkConnection {
+import Alamofire
+import SDWebImage
+import SwiftyJSON
+
+class NetworkConnection : NetworkProtocol{
+    var movies : [Movie]!;
+    var arrRes = [[String:AnyObject]]() //Array of dictionary
+    let dataLayer : DataLayer = DataLayer(appDelegate: UIApplication.shared.delegate as! AppDelegate)
+    var homePresenter :HomePresenter?
+    
+    func setDelegate(delegate: HomePresenter)
+    {
+        self.homePresenter = delegate
+       // print("inside NetworkConnection setDelegate")
+    }
+    
+    
+    func fetchMostPopular(url: String) {
+        movies = []
+        print("inside fetchMostPopular Network")
+        Alamofire.request(url).responseJSON { (responseData) -> Void in
+            if((responseData.result.value) != nil)
+            {
+                let swiftyJsonVar = JSON(responseData.result.value!)
+                if let resData = swiftyJsonVar["results"].arrayObject
+                {
+                    self.arrRes = resData as! [[String:AnyObject]]
+                    //print(self.arrRes)
+                    for index in 0..<self.arrRes.count{
+                        let dict = self.arrRes[index]
+                        let movieObject = Movie()
+                        let movieId = dict[APIMovie.id.rawValue] as! Int
+                        movieObject.id = movieId
+                        let imgUrl = dict[APIMovie.posterPath.rawValue] as? String
+                        let fullUrl = "https://image.tmdb.org/t/p/w185/"+imgUrl!
+                        movieObject.fullUrl = fullUrl
+                        movieObject.title = (dict[APIMovie.title.rawValue] as? String)!
+                        movieObject.overview = (dict[APIMovie.overview.rawValue]as? String)!
+                        movieObject.releaseDate = (dict[APIMovie.releaseDate.rawValue]as? String)!
+                        let reviewURL = "https://api.themoviedb.org/3/movie/\(movieId)/reviews?api_key=dc9a86621980e480855fa9b593c738e7"
+                        movieObject.reviewURL = reviewURL
+                        let trailerURL = "https://api.themoviedb.org/3/movie/\(movieId)/videos?api_key=dc9a86621980e480855fa9b593c738e7"
+                        movieObject.trailerURL = trailerURL
+                        movieObject.voteAverage = (dict[APIMovie.voteAverage.rawValue] as? NSNumber)?.floatValue ?? 0
+                        //self.dataLayer.printMovie(movie: movieObject)
+                        self.movies.append(movieObject)
+                        //let saveStatus = self.dataLayer.insertMovie(movie: movieObject)
+                        //print("saveStatus\(saveStatus)")
+                    }
+                }
+                else
+                {
+                    print("responseData No results")
+                }
+            } // end of If
+            else
+            {
+                print("responseData is nil")
+            }
+           // print(self.movies.count)
+            if self.movies.count > 0
+            {
+                self.homePresenter?.successPopularMovies(PopularArr: self.movies)
+            }
+            else
+            {
+                print("movies count 0")
+                self.homePresenter?.failurePopularMovies()
+            }
+        } // end of Alamofire.request
+       
+    }
+    
+  /*  func fetchTopRated(url: String) -> Array<Movie> {
+        
+    }*/
+    
     
 }

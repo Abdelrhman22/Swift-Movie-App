@@ -21,6 +21,7 @@
 		A7775D1C2289B3D4009A7D60 /* DetailsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7775D1B2289B3D4009A7D60 /* DetailsDelegate.swift */; };
 		A7775D1F2289B43C009A7D60 /* DetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7775D1E2289B43C009A7D60 /* DetailsPresenter.swift */; };
 		A7775D222289B50E009A7D60 /* NetworkConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7775D212289B50E009A7D60 /* NetworkConnection.swift */; };
+		A7775D252289B7B5009A7D60 /* NetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7775D242289B7B5009A7D60 /* NetworkProtocol.swift */; };
 		BA18271722863058005A16D6 /* APIEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA18271622863058005A16D6 /* APIEnums.swift */; };
 		BA18271A22863750005A16D6 /* EntitiesEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA18271922863750005A16D6 /* EntitiesEnums.swift */; };
 		BA18271C22863B15005A16D6 /* DataLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA18271B22863B15005A16D6 /* DataLayer.swift */; };
@@ -54,6 +55,7 @@
 		A7775D1B2289B3D4009A7D60 /* DetailsDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsDelegate.swift; sourceTree = "<group>"; };
 		A7775D1E2289B43C009A7D60 /* DetailsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsPresenter.swift; sourceTree = "<group>"; };
 		A7775D212289B50E009A7D60 /* NetworkConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConnection.swift; sourceTree = "<group>"; };
+		A7775D242289B7B5009A7D60 /* NetworkProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProtocol.swift; sourceTree = "<group>"; };
 		BA18271622863058005A16D6 /* APIEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEnums.swift; sourceTree = "<group>"; };
 		BA18271922863750005A16D6 /* EntitiesEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntitiesEnums.swift; sourceTree = "<group>"; };
 		BA18271B22863B15005A16D6 /* DataLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLayer.swift; sourceTree = "<group>"; };
@@ -233,6 +235,7 @@
 			isa = PBXGroup;
 			children = (
 				A7775D212289B50E009A7D60 /* NetworkConnection.swift */,
+				A7775D242289B7B5009A7D60 /* NetworkProtocol.swift */,
 			);
 			path = services;
 			sourceTree = "<group>";
@@ -432,6 +435,7 @@
 				BAEC10252285F00800C0D721 /* ViewController.swift in Sources */,
 				A7775D0A2289B0E7009A7D60 /* HomeDelegate.swift in Sources */,
 				A7775D1F2289B43C009A7D60 /* DetailsPresenter.swift in Sources */,
+				A7775D252289B7B5009A7D60 /* NetworkProtocol.swift in Sources */,
 				BA69F619228748E100952D02 /* MovieDetailsViewController.swift in Sources */,
 				A7775D0D2289B176009A7D60 /* HomePresenter.swift in Sources */,
 				A7775D082289B0B2009A7D60 /* HomeCollectionViewController_ExtensionDelegate.swift in Sources */,

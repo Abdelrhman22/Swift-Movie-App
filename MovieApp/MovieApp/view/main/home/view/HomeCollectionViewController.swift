@@ -13,92 +13,43 @@ import SwiftyJSON
 private let reuseIdentifier = "homeCollectionCell"
 
 class HomeCollectionViewController: UICollectionViewController {
-      var movies : [Movie]!;
-      var arrRes = [[String:AnyObject]]() //Array of dictionary
-      let dataLayer : DataLayer = DataLayer(appDelegate: UIApplication.shared.delegate as! AppDelegate)
-    var destinationVC : MovieDetailsViewController!
+    
+    
+      var movies : [Movie]! = [];
+    
+    let url : String = "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=dc9a86621980e480855fa9b593c738e7"
 
-    override func viewDidLoad() {
+      var destinationVC : MovieDetailsViewController!
+      var homePresenter: HomePresenter = HomePresenter()
+      override func viewDidLoad() {
         super.viewDidLoad()
-        //self.clearsSelectionOnViewWillAppear = false
-        //self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-        movies = []
-        DispatchQueue.main.async
-            {
-                Alamofire.request("https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=dc9a86621980e480855fa9b593c738e7").responseJSON { (responseData) -> Void in
-                    if((responseData.result.value) != nil)
-                    {
-                        let swiftyJsonVar = JSON(responseData.result.value!)
-                        if let resData = swiftyJsonVar["results"].arrayObject
-                        {
-                            self.arrRes = resData as! [[String:AnyObject]]
-                            //print(self.arrRes)
-                            for index in 0..<self.arrRes.count{
-                                let dict = self.arrRes[index]
-                                let movieObject = Movie()
-                                let movieId = dict[APIMovie.id.rawValue] as! Int
-                                movieObject.id = movieId
-                                let imgUrl = dict[APIMovie.posterPath.rawValue] as? String
-                                let fullUrl = "https://image.tmdb.org/t/p/w185/"+imgUrl!
-                                movieObject.fullUrl = fullUrl
-                                movieObject.title = (dict[APIMovie.title.rawValue] as? String)!
-                                movieObject.overview = (dict[APIMovie.overview.rawValue]as? String)!
-                                movieObject.releaseDate = (dict[APIMovie.releaseDate.rawValue]as? String)!
-                                let reviewURL = "https://api.themoviedb.org/3/movie/\(movieId)/reviews?api_key=dc9a86621980e480855fa9b593c738e7"
-                                movieObject.reviewURL = reviewURL
-                                let trailerURL = "https://api.themoviedb.org/3/movie/\(movieId)/videos?api_key=dc9a86621980e480855fa9b593c738e7"
-                                movieObject.trailerURL = trailerURL
-                                movieObject.voteAverage = (dict[APIMovie.voteAverage.rawValue] as? NSNumber)?.floatValue ?? 0
-                                self.dataLayer.printMovie(movie: movieObject)
-                                self.movies.append(movieObject)
-                                DispatchQueue.main.async
-                                    {
-                                         self.collectionView?.reloadData()
-                                }
-                                //let saveStatus = self.dataLayer.insertMovie(movie: movieObject)
-                                //print("saveStatus\(saveStatus)")
-                            }
-                        }
-                        else
-                        {
-                            print("responseData No results")
-                        }
-                    } // end of If
-                    else
-                    {
-                        print("responseData is nil")
-                    }
-                    
-                } // end of Alamofire.request
-        } // end of DispatchQueue
+        
+        homePresenter.setDelegate(delegate: self)
+        self.homePresenter.setURL(URL: self.url)
+    }
+    override func viewWillAppear(_ animated: Bool)
+    {
+        DispatchQueue.main.async{
+                self.collectionView?.reloadData()
+            }
+        
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
         
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         self.destinationVC = segue.destination as! MovieDetailsViewController
     }
     
-
-    // MARK: UICollectionViewDataSource
-
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
-
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
         return movies.count
     }
 
@@ -106,11 +57,9 @@ class HomeCollectionViewController: UICollectionViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! MovieCollectionViewCell
         let image = movies[indexPath.row].fullUrl
         cell.moviePosterImage.sd_setImage(with: URL(string: image), placeholderImage: UIImage(named: "placeholder.jpg"))
-        // Configure the cell
     
         return cell
     }
-    // Set two cells per row
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = (self.view.frame.size.width - 8 * 2) / 2 //some width
         let height = width * 275 / 185 //ratio

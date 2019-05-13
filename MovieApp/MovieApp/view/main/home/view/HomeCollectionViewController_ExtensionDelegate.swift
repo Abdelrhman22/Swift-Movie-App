@@ -9,5 +9,14 @@
 import Foundation
 extension HomeCollectionViewController: HomeDelegate
 {
+    func setPopularMovies(popularArr: Array<Movie>) {
+        self.movies = popularArr
+        
+    }
+    
+    func errorPopularMovies() {
+        print("Error in HomeCollectionViewController")
+    }
+    
     
 }
