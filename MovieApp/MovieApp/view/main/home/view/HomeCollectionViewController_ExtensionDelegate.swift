@@ -11,7 +11,9 @@ extension HomeCollectionViewController: HomeDelegate
 {
     func setPopularMovies(popularArr: Array<Movie>) {
         self.movies = popularArr
-        
+        DispatchQueue.main.async{
+            self.collectionView?.reloadData()
+        }
     }
     
     func errorPopularMovies() {

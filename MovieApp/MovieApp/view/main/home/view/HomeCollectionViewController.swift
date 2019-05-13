@@ -29,10 +29,6 @@ class HomeCollectionViewController: UICollectionViewController {
     }
     override func viewWillAppear(_ animated: Bool)
     {
-        DispatchQueue.main.async{
-                self.collectionView?.reloadData()
-            }
-        
     }
     
     override func didReceiveMemoryWarning() {
