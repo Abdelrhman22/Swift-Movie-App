@@ -12,7 +12,7 @@ import SDWebImage
 import SwiftyJSON
 private let reuseIdentifier = "homeCollectionCell"
 
-class HomeCollectionViewController: UICollectionViewController {
+class HomeCollectionViewController: UICollectionViewController , UICollectionViewDelegateFlowLayout {
     
     
       var movies : [Movie]! = [];
@@ -57,6 +57,7 @@ class HomeCollectionViewController: UICollectionViewController {
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        print("--------------------------------------------")
         let width = (self.view.frame.size.width - 8 * 2) / 2 //some width
         let height = width * 275 / 185 //ratio
         return CGSize(width: width, height: height)
