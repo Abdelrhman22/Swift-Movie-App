@@ -12,19 +12,29 @@ import Alamofire
 import SDWebImage
 class MovieDetailsViewController: UIViewController {
     
+    @IBOutlet var reviewsLabel: UILabel!
+    @IBOutlet var overviewLabel: UILabel!
+    @IBOutlet var posterImageView: UIImageView!
+    @IBOutlet var rateLabel: UILabel!
+    @IBOutlet var yearLabel: UILabel!
+    @IBOutlet var titleLabel: UILabel!
     var movies : [NSManagedObject]!;
     let dataLayer : DataLayer = DataLayer(appDelegate: UIApplication.shared.delegate as! AppDelegate)
     var myMovie : Movie = Movie ()
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        titleLabel.text = myMovie.title
+        yearLabel.text = myMovie.releaseDate
+        rateLabel.text = String( myMovie.voteAverage ) + " /10"
+        posterImageView.sd_setImage(with: URL(string: myMovie.fullUrl), placeholderImage: UIImage(named: "placeholder.jpg"))
+        overviewLabel.text = myMovie.overview
         
-        // Do any additional setup after loading the view.
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func setMovie(movieObj : Movie)
