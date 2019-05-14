@@ -39,6 +39,7 @@ class HomeCollectionViewController: UICollectionViewController , UICollectionVie
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         self.destinationVC = segue.destination as! MovieDetailsViewController
+        //destinationVC.setMovie(movieObj: movies![(self.collectionView?.indexPath(for: reuseIdentifier).row)!]);
     }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -61,7 +62,10 @@ class HomeCollectionViewController: UICollectionViewController , UICollectionVie
         let height = width * 275 / 185 //ratio
         return CGSize(width: width, height: height)
     }
+    
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        destinationVC.setMovie(movieObj: movies[indexPath.row]);
         print(movies[indexPath.row].title)
     }
     // MARK: UICollectionViewDelegate

@@ -9,7 +9,7 @@
 import UIKit
 
 class MovieDetailsViewController: UIViewController {
-
+    var myMovie : Movie = Movie ()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -21,7 +21,12 @@ class MovieDetailsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    func setMovie(movieObj : Movie)
+        {
+            myMovie = movieObj
+            print(myMovie.id)
+            print(myMovie.fullUrl)
+    }
     /*
     // MARK: - Navigation
 
