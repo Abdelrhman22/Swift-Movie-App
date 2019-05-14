@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (4.7.2)
+  - BTNavigationDropdownMenu (0.4.1)
   - lottie-ios (2.5.0)
   - SDWebImage (4.3.3):
     - SDWebImage/Core (= 4.3.3)
@@ -8,6 +9,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 4.7)
+  - BTNavigationDropdownMenu
   - lottie-ios
   - SDWebImage (~> 4.0)
   - SwiftyJSON (~> 4.0)
@@ -15,16 +17,18 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - Alamofire
+    - BTNavigationDropdownMenu
     - lottie-ios
     - SDWebImage
     - SwiftyJSON
 
 SPEC CHECKSUMS:
   Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
+  BTNavigationDropdownMenu: 093f3cbfad1572f2c222bdf8d17584d1e13380d4
   lottie-ios: d699fdee68d7b63e721d949388b015fef1aaa4ac
   SDWebImage: de4d90b5bff3571eae7bd16202b1f43135409fa5
   SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
 
-PODFILE CHECKSUM: 24ff27de4d855f13dee16bedc6dd30d53fa76fb0
+PODFILE CHECKSUM: 9aa08f029ea0c5f323c018c3adc5d20c4b9e1fc8
 
 COCOAPODS: 1.5.0
