@@ -12,9 +12,9 @@ import CoreData
 class DataLayer{
 
     let appDelegate : AppDelegate?
-    let managedContext : NSManagedObjectContext?
+    var managedContext : NSManagedObjectContext?
     let movieEntity : NSEntityDescription?
-    
+    var movies : [NSManagedObject]!;     // movies array  of type NSManagedObject to deal with CoreData
     init(appDelegate : AppDelegate)
     {
         self.appDelegate = appDelegate
@@ -119,4 +119,15 @@ class DataLayer{
         return true
     }
     //*************************************************************************************
+    func getFavouriteMovies() -> [NSManagedObject]
+    {
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: MoviesEntity.entityName.rawValue)
+        do
+        {
+            movies = try managedContext!.fetch(fetchRequest) // fetch
+        }catch{
+            print("viewWillAppear ...Error while fetching movies ")
+        }
+        return movies
+    }
 }

@@ -7,12 +7,18 @@
 //
 
 import UIKit
-
+import CoreData
+import Alamofire
+import SDWebImage
 class MovieDetailsViewController: UIViewController {
+    
+    var movies : [NSManagedObject]!;
+    let dataLayer : DataLayer = DataLayer(appDelegate: UIApplication.shared.delegate as! AppDelegate)
     var myMovie : Movie = Movie ()
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
 
@@ -24,10 +30,21 @@ class MovieDetailsViewController: UIViewController {
     func setMovie(movieObj : Movie)
         {
             myMovie = movieObj
-            print(myMovie.id)
-            print(myMovie.fullUrl)
+            dataLayer.printMovie(movie: myMovie)
     }
-    /*
+    @IBAction func addToFavourite(_ sender: UIButton) {
+        //print("Button Fav Clicked")
+        let ismovieExist = dataLayer.isMovieExists(id: myMovie.id)
+        if ismovieExist
+        {
+            print("This Movie Already in Favouroties")
+        }
+        else{
+            let addStatus = dataLayer.insertMovie(movie: myMovie)
+            print("Movie added Status \(addStatus)")
+        }
+    }
+    /*ß 
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation

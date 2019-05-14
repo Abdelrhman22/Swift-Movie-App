@@ -66,7 +66,7 @@ class HomeCollectionViewController: UICollectionViewController , UICollectionVie
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         destinationVC.setMovie(movieObj: movies[indexPath.row]);
-        print(movies[indexPath.row].title)
+        //print(movies[indexPath.row].title)
     }
     // MARK: UICollectionViewDelegate
 
