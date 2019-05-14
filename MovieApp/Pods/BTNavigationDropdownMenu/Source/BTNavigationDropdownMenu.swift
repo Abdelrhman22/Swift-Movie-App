@@ -23,9 +23,9 @@
 //  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
-
+/*
 import UIKit
-
+import BTNavigationDropdownMenu
 // MARK: BTNavigationDropdownMenu
 public class BTNavigationDropdownMenu: UIView {
     
@@ -42,7 +42,7 @@ public class BTNavigationDropdownMenu: UIView {
     // The height of the cell. Default is 50
     public var cellHeight: NSNumber! {
         get {
-            return CGFloat(self.configuration.cellHeight)
+            return CGFloat(self.configuration.cellHeight) as NSNumber
         }
         set(value) {
             self.configuration.cellHeight = CGFloat(value)
@@ -735,3 +735,4 @@ extension UIViewController {
         return self.topPresentedViewController?.topVisibleViewController
     }
 }
+*/
