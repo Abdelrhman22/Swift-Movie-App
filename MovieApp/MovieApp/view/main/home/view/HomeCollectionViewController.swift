@@ -57,7 +57,6 @@ class HomeCollectionViewController: UICollectionViewController , UICollectionVie
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        print("--------------------------------------------")
         let width = (self.view.frame.size.width - 8 * 2) / 2 //some width
         let height = width * 275 / 185 //ratio
         return CGSize(width: width, height: height)
