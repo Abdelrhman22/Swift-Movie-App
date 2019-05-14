@@ -16,7 +16,8 @@ class NetworkConnection : NetworkProtocol{
     var arrRes = [[String:AnyObject]]() //Array of dictionary
     let dataLayer : DataLayer = DataLayer(appDelegate: UIApplication.shared.delegate as! AppDelegate)
     var homePresenter :HomePresenter?
-    
+     var arrReviewRes = [[String:AnyObject]]()
+     var fullReviews : String = ""
     func setDelegate(delegate: HomePresenter)
     {
         self.homePresenter = delegate
@@ -79,7 +80,36 @@ class NetworkConnection : NetworkProtocol{
         } // end of Alamofire.request
        
     }
+    func getReviews(url : String) -> ( String)
+    {
+        Alamofire.request(url).responseJSON { (responseData) -> Void in
+            if((responseData.result.value) != nil)
+            {
+                let swiftyJsonVar = JSON(responseData.result.value!)
     
+                if let resData = swiftyJsonVar["results"].arrayObject {
+                    self.arrReviewRes = resData as! [[String:AnyObject]]
+                    var authorFull : String = ""
+                    var contentFull : String = ""
+                    for i in 0..<self.arrReviewRes.count
+                    {
+                        var dictReview = self.arrReviewRes[i]
+                        authorFull = authorFull + (dictReview["author"] as? String)! + "#"
+                        contentFull = contentFull + (dictReview["content"] as? String)! + "#"
+                    }
+                    var authorArr = authorFull.split(separator: "#")
+                    var contentArr = contentFull.split(separator: "#")
+                    
+                    for i in 0..<authorArr.count
+                    {
+                        self.fullReviews = self.fullReviews + authorArr[i] + "\n\n" + contentArr[i] + "\n\n\n\n"
+                    }
+                   
+                }
+            }
+        }
+        return fullReviews
+    }
   /*  func fetchTopRated(url: String) -> Array<Movie> {
         
     }*/

@@ -8,5 +8,20 @@
 
 import Foundation
 class DetailsPresenter{
-    
+    var detailsDelegate : DetailsDelegate?
+    var connection: NetworkProtocol?
+    var MovieReviews : String = ""
+    init()
+    {
+        connection = NetworkConnection()
+    }
+    func setDelegate(delegate: DetailsDelegate)
+    {
+        self.detailsDelegate = delegate
+    }
+    func getReviews(url : String) {
+        MovieReviews = (connection?.getReviews(url: url))!
+        print("inside Presenter\(url)")
+        detailsDelegate?.getReviews(reviewStr: MovieReviews)
+    }
 }

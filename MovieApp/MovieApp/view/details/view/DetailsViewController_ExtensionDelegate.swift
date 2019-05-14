@@ -9,5 +9,10 @@
 import Foundation
 extension MovieDetailsViewController: DetailsDelegate
 {
+    func getReviews(reviewStr: String) {
+       self.fullReviews = reviewStr
+        print("inside Extenstion *****\(fullReviews)")
+    }
+    
     
 }
