@@ -11,7 +11,8 @@ protocol NetworkProtocol {
     func fetchMostPopular(url : String) ;
     //func fetchTopRated(url : String) -> Array<Movie> ;
     func setDelegate(delegate: HomePresenter);
-    func getReviews(url : String) -> ( String)
+    func setDelegate(delegate: DetailsPresenter);
+    func getReviews(url : String)
     
     
 }

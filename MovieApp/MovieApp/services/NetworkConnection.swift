@@ -12,16 +12,21 @@ import SDWebImage
 import SwiftyJSON
 
 class NetworkConnection : NetworkProtocol{
+   
     var movies : [Movie]!;
     var arrRes = [[String:AnyObject]]() //Array of dictionary
     let dataLayer : DataLayer = DataLayer(appDelegate: UIApplication.shared.delegate as! AppDelegate)
     var homePresenter :HomePresenter?
+    var detailsPresenter : DetailsPresenter?
      var arrReviewRes = [[String:AnyObject]]()
      var fullReviews : String = ""
     func setDelegate(delegate: HomePresenter)
     {
         self.homePresenter = delegate
        // print("inside NetworkConnection setDelegate")
+    }
+    func setDelegate(delegate: DetailsPresenter) {
+        self.detailsPresenter = delegate
     }
     
     
@@ -80,7 +85,7 @@ class NetworkConnection : NetworkProtocol{
         } // end of Alamofire.request
        
     }
-    func getReviews(url : String) -> ( String)
+    func getReviews(url : String)
     {
         Alamofire.request(url).responseJSON { (responseData) -> Void in
             if((responseData.result.value) != nil)
@@ -104,11 +109,12 @@ class NetworkConnection : NetworkProtocol{
                     {
                         self.fullReviews = self.fullReviews + authorArr[i] + "\n\n" + contentArr[i] + "\n\n\n\n"
                     }
-                   
+                    self.detailsPresenter?.setReviews(str: self.fullReviews)
                 }
             }
         }
-        return fullReviews
+       
+       
     }
   /*  func fetchTopRated(url: String) -> Array<Movie> {
         

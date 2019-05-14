@@ -8,5 +8,5 @@
 
 import Foundation
 protocol DetailsDelegate{
-    func getReviews(reviewStr : String)
+    func setReviews(reviewStr : String)
 }

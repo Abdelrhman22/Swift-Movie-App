@@ -18,7 +18,7 @@ class MovieDetailsViewController: UIViewController {
     @IBOutlet var rateLabel: UILabel!
     @IBOutlet var yearLabel: UILabel!
     @IBOutlet var titleLabel: UILabel!
-    var fullReviews : String = ""
+    var fullReviews : String = "Intial Value"
     var movies : [NSManagedObject]!;
     let dataLayer : DataLayer = DataLayer(appDelegate: UIApplication.shared.delegate as! AppDelegate)
     var myMovie : Movie = Movie ()
@@ -34,7 +34,11 @@ class MovieDetailsViewController: UIViewController {
         reviewsLabel.text = fullReviews
         
     }
-
+    override func viewWillAppear(_ animated: Bool) {
+        DispatchQueue.main.async{
+            self.view.reloadInputViews()
+        }
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -42,7 +46,8 @@ class MovieDetailsViewController: UIViewController {
     func setMovie(movieObj : Movie)
         {
             myMovie = movieObj
-            dataLayer.printMovie(movie: myMovie)
+            //dataLayer.printMovie(movie: myMovie)
+            detailsPresenter.setDelegate(delegate: self)
             detailsPresenter.getReviews(url: myMovie.reviewURL)
     }
     @IBAction func addToFavourite(_ sender: UIButton) {

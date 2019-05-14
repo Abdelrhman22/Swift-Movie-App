@@ -18,10 +18,13 @@ class DetailsPresenter{
     func setDelegate(delegate: DetailsDelegate)
     {
         self.detailsDelegate = delegate
+        self.connection?.setDelegate(delegate: self)
     }
     func getReviews(url : String) {
-        MovieReviews = (connection?.getReviews(url: url))!
-        print("inside Presenter\(url)")
-        detailsDelegate?.getReviews(reviewStr: MovieReviews)
+        connection?.getReviews(url: url)
+    }
+    func setReviews(str : String){
+        //print("==========  Reviews in Presenter\(str)")
+        detailsDelegate?.setReviews(reviewStr : str)
     }
 }
