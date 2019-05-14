@@ -7,7 +7,19 @@
 //
 
 import Foundation
+import CoreData
 extension FavouritesCollectionViewController: FavouriteDelegate
 {
+    func getClickedMovie(movie: Movie) {
+       self.clickedMovie = movie
+    }
+    
+    func retriveFavouriteMovies (arr :[NSManagedObject]){
+        self.moviesArr = arr
+        DispatchQueue.main.async{
+            self.collectionView?.reloadData()
+        }
+    }
+    
     
 }

@@ -79,7 +79,7 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" id="z0x-Zg-KNI">
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="Ebv-Ht-90i"/>
+                        <barButtonItem key="rightBarButtonItem" title="Top Rated" id="Ebv-Ht-90i"/>
                     </navigationItem>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LZw-yG-qW2" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -222,6 +222,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="mbK-kv-hdc"/>
+        <segue reference="wVY-UN-k8Z"/>
     </inferredMetricsTieBreakers>
 </document>

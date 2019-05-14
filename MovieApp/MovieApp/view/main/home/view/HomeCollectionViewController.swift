@@ -14,9 +14,7 @@ private let reuseIdentifier = "homeCollectionCell"
 
 class HomeCollectionViewController: UICollectionViewController , UICollectionViewDelegateFlowLayout {
     
-    
-      var movies : [Movie]! = [];
-    
+    var movies : [Movie]! = [];
     let url : String = "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=dc9a86621980e480855fa9b593c738e7"
 
       var destinationVC : MovieDetailsViewController!

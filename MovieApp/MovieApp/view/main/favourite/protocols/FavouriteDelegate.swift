@@ -7,6 +7,9 @@
 //
 
 import Foundation
-protocol FavouriteDelegate{
-    
+import CoreData
+protocol FavouriteDelegate
+{
+    func retriveFavouriteMovies ( arr :[NSManagedObject])
+    func getClickedMovie (movie : Movie)
 }
