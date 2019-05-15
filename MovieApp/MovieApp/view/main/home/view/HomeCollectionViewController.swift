@@ -14,7 +14,7 @@ private let reuseIdentifier = "homeCollectionCell"
 
 class HomeCollectionViewController: UICollectionViewController , UICollectionViewDelegateFlowLayout {
     
-  
+  var counter = 1
     var movies : [Movie]! = [];
     let url : String = "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=dc9a86621980e480855fa9b593c738e7"
     let urlTopRated : String = "https://api.themoviedb.org/3/discover/movie?sort_by=top_rated.desc&api_key=dc9a86621980e480855fa9b593c738e7"
@@ -22,15 +22,36 @@ class HomeCollectionViewController: UICollectionViewController , UICollectionVie
       var homePresenter: HomePresenter = HomePresenter()
       override func viewDidLoad() {
         super.viewDidLoad()
-        
         homePresenter.setDelegate(delegate: self)
         self.homePresenter.setURL(URL: self.url)
     }
     override func viewWillAppear(_ animated: Bool)
     {
     }
-    @IBAction func topRatedBtn(_ sender: Any) {
+    @IBAction func topRatedBtn(_ sender: UIBarButtonItem!) {
+        if counter % 2 != 0
+        {
+        
         self.homePresenter.setURL(URL: self.urlTopRated)
+        counter  = counter + 1
+           
+            //sender.setTitle("Most Popular", for: UIControlState.normal)
+           
+
+
+        }
+        else if counter % 2 == 0
+        {
+            self.homePresenter.setURL(URL: self.url)
+            counter  = counter + 1
+          
+            //sender.setTitle("Top Rated", for: UIControlState.normal)
+            
+
+
+        }
+        
+        
     }
     
     override func didReceiveMemoryWarning() {
