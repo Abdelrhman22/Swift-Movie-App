@@ -32,11 +32,17 @@ class MovieDetailsViewController: UIViewController {
         rateLabel.text = String( myMovie.voteAverage ) + " /10"
         posterImageView.sd_setImage(with: URL(string: myMovie.fullUrl), placeholderImage: UIImage(named: "placeholder.jpg"))
         overviewLabel.text = myMovie.overview
-        reviewsLabel.text = fullReviews
+        
         
     }
     override func viewWillAppear(_ animated: Bool) {
         DispatchQueue.main.async{
+            for index in 0..<self.reviews.count
+            {
+                var str = self.reviews[index].content
+                str.append("\n\(self.reviews[index].content)")
+                self.reviewsLabel.text = str
+            }
             self.view.reloadInputViews()
         }
     }

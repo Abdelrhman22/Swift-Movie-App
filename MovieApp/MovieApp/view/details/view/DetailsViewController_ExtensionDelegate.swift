@@ -14,7 +14,7 @@ extension MovieDetailsViewController: DetailsDelegate
         DispatchQueue.main.async{
             self.view.reloadInputViews()
         }
-        print("*** inside Extenstion *****\(reviews.count)")
+        print("****** inside Extenstion *****\(reviews.count)")
     }
     
     
