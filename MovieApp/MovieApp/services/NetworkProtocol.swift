@@ -13,6 +13,7 @@ protocol NetworkProtocol {
     func setDelegate(delegate: HomePresenter);
     func setDelegate(delegate: DetailsPresenter);
     func getReviews(url : String)
+    func getTrailers(url : String) 
     
     
 }

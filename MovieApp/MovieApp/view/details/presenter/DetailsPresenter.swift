@@ -26,4 +26,10 @@ class DetailsPresenter{
     func setReviews(reviewArr : Array<Review>){
         detailsDelegate?.setReviews(reviewArr : reviewArr)
     }
+    func getTrailers(url : String) {
+        connection?.getTrailers(url: url)
+    }
+    func setTrailers(trailerArr : Array<Trailer>) {
+       detailsDelegate?.setTrailers(trailerArr: trailerArr)
+    }
 }

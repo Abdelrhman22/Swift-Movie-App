@@ -26,6 +26,7 @@ class MovieDetailsViewController: UIViewController , UITableViewDelegate , UITab
     var fullReviews : String = "Intial Value"
     var movies : [NSManagedObject]!;
     var reviews : [Review]!
+    var trailers : [Trailer]!
     let dataLayer : DataLayer = DataLayer(appDelegate: UIApplication.shared.delegate as! AppDelegate)
     var myMovie : Movie = Movie ()
     var detailsPresenter : DetailsPresenter = DetailsPresenter()
@@ -33,7 +34,7 @@ class MovieDetailsViewController: UIViewController , UITableViewDelegate , UITab
     {
         super.viewDidLoad()
         self.reviews = []
-        
+        self.trailers = []
         
        //print("viewDidLoad count \(reviews.count)")
         titleLabel.text = myMovie.title
@@ -62,13 +63,16 @@ class MovieDetailsViewController: UIViewController , UITableViewDelegate , UITab
     
     override func viewWillAppear(_ animated: Bool) {
         
-       // print("viewDidLoad count \(reviews.count)")
-
+        print("viewWillAppear count \(reviews.count)")
+        print("viewWillAppear count \(trailers.count)")
         DispatchQueue.main.async{
-        
+            for i in 0..<self.trailers.count
+            {
+                print("Key === \(self.trailers[i].key)")
+            }
+            /*
             for index in 0..<self.reviews.count
             {
-            
                 print("jfdalsdfbgalsiubf \(self.reviews.count)")
                 print(self.reviews[index].author)
                 print(self.reviews[index].content)
@@ -77,6 +81,7 @@ class MovieDetailsViewController: UIViewController , UITableViewDelegate , UITab
                 //str.append("\n\(self.reviews[index].content)")
                // self.reviewTextView.text = self.reviews[index].author + self.reviews[index].content
             }
+            */
             self.view.reloadInputViews()
         }
     }
@@ -89,6 +94,7 @@ class MovieDetailsViewController: UIViewController , UITableViewDelegate , UITab
             myMovie = movieObj
             self.detailsPresenter.setDelegate(delegate: self)
             self.detailsPresenter.getReviews(url: self.myMovie.reviewURL)
+            self.detailsPresenter.getTrailers(url: self.myMovie.trailerURL)
             DispatchQueue.main.async{
 
             
@@ -107,8 +113,12 @@ class MovieDetailsViewController: UIViewController , UITableViewDelegate , UITab
             print("Movie added Status \(addStatus)")
         }
     }
-    func setre(reviewArr: Array<Review>)  {
+    func setre(reviewArr: Array<Review>) {
         self.reviews = reviewArr
+        print("Review Count \(self.reviews.count)")
     }
-
+   func setTrai(trailerArr: Array<Trailer>) {
+        self.trailers = trailerArr
+        print("Trailer Count \(self.trailers.count)")
+    }
 }
