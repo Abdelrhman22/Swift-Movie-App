@@ -9,4 +9,5 @@
 import Foundation
 protocol DetailsDelegate{
     func setReviews(reviewArr : Array<Review>)
+    func setTrailers(trailerArr : Array<Trailer>)
 }

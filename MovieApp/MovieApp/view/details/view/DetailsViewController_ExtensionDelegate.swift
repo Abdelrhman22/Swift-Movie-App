@@ -9,16 +9,10 @@
 import Foundation
 extension MovieDetailsViewController: DetailsDelegate
 {
+    
     func setReviews(reviewArr : Array<Review>) {
         
-       /* for i in 0..<reviewArr.count
-        {
-            print(reviewArr[i].author)
-            print(reviewArr[i].content)
-            print("----------------------------")
-        }*/
-       self.reviews = reviewArr
-        
+        self.reviews = reviewArr
         self.setre(reviewArr : reviewArr)
         DispatchQueue.main.async{
             self.view.reloadInputViews()
@@ -29,6 +23,21 @@ extension MovieDetailsViewController: DetailsDelegate
             print(reviews[i].content)
             print("----------------------------")
         }*/
+    }
+    func setTrailers(trailerArr: Array<Trailer>) {
+       self.trailers = trailerArr
+       self.setTrai(trailerArr: trailerArr)
+        DispatchQueue.main.async{
+            self.view.reloadInputViews()
+        }
+        /*
+        print("Trailers Count in DetailsDelegate \(trailers.count)")
+        for i in 0..<trailers.count
+        {
+            print(trailers[i].name)
+            print(trailers[i].key)
+        }
+         */
     }
     
     

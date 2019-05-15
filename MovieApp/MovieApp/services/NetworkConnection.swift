@@ -12,9 +12,11 @@ import SDWebImage
 import SwiftyJSON
 
 class NetworkConnection : NetworkProtocol{
+    
    
     var movies  : [Movie]!;
     var reviews : [Review]!;
+    var trailers: [Trailer]!;
     var arrRes = [[String:AnyObject]]() //Array of dictionary
     let dataLayer : DataLayer = DataLayer(appDelegate: UIApplication.shared.delegate as! AppDelegate)
     var homePresenter :HomePresenter?
@@ -104,17 +106,37 @@ class NetworkConnection : NetworkProtocol{
                         reviewObject.content = (dictReview["content"] as? String)!
                         self.reviews.append(reviewObject)
                     }
-                    print("Review of this Movie is +++ \(self.reviews.count)")
+                    print("Reviews Count +++ \(self.reviews.count)")
                     self.detailsPresenter?.setReviews(reviewArr: self.reviews)
                 }
             }
         }
        
-       
     }
-  /*  func fetchTopRated(url: String) -> Array<Movie> {
-        
-    }*/
+    func getTrailers(url: String) {
+       trailers = []
+        Alamofire.request(url).responseJSON { (responseData) -> Void in
+            if((responseData.result.value) != nil)
+            {
+                let swiftyJsonVar = JSON(responseData.result.value!)
+                
+                if let resData = swiftyJsonVar["results"].arrayObject {
+                    self.arrReviewRes = resData as! [[String:AnyObject]]
+                    for i in 0..<self.arrReviewRes.count
+                    {
+                        var dictReview = self.arrReviewRes[i]
+                        let trailerObject = Trailer()
+                        trailerObject.name  = (dictReview["name"] as? String)!
+                        trailerObject.key = (dictReview["key"] as? String)!
+                        self.trailers.append(trailerObject)
+                    }
+                    print("Trailers Count  +++ \(self.trailers.count)")
+                    self.detailsPresenter?.setTrailers(trailerArr: self.trailers)
+                }
+            }
+        }
+    }
+    
     
     
 }

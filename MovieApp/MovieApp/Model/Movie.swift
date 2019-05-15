@@ -17,7 +17,8 @@ class Movie : NSObject
     var reviewURL : String = ""
     var voteAverage : Float = 0.0
     var trailerURL : String = ""
-    var arrReviews : [Review]
+    var arrReviews  : [Review]
+    var arrTrailers : [Trailer]
     override init ()
     {
         self.id = 0
@@ -29,6 +30,7 @@ class Movie : NSObject
         self.voteAverage = 0.0
         self.trailerURL = ""
         self.arrReviews = []
+        self.arrTrailers = []
     }
     
 }
