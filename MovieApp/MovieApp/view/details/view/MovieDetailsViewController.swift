@@ -10,8 +10,13 @@ import UIKit
 import CoreData
 import Alamofire
 import SDWebImage
-class MovieDetailsViewController: UIViewController {
+class MovieDetailsViewController: UIViewController , UITableViewDelegate , UITableViewDataSource{
+
     
+    
+    @IBOutlet var reviewTableView: UITableView!
+    
+    @IBOutlet var reviewTextView: UITextView!
     @IBOutlet var reviewsLabel: UILabel!
     @IBOutlet var overviewLabel: UILabel!
     @IBOutlet var posterImageView: UIImageView!
@@ -20,28 +25,57 @@ class MovieDetailsViewController: UIViewController {
     @IBOutlet var titleLabel: UILabel!
     var fullReviews : String = "Intial Value"
     var movies : [NSManagedObject]!;
-    var reviews : [Review] = [];
+    var reviews : [Review]!
     let dataLayer : DataLayer = DataLayer(appDelegate: UIApplication.shared.delegate as! AppDelegate)
     var myMovie : Movie = Movie ()
     var detailsPresenter : DetailsPresenter = DetailsPresenter()
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        self.reviews = []
+        
+        
+       //print("viewDidLoad count \(reviews.count)")
         titleLabel.text = myMovie.title
         yearLabel.text = myMovie.releaseDate
         rateLabel.text = String( myMovie.voteAverage ) + " /10"
         posterImageView.sd_setImage(with: URL(string: myMovie.fullUrl), placeholderImage: UIImage(named: "placeholder.jpg"))
         overviewLabel.text = myMovie.overview
-        
-        
+
     }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return reviews.count
+    }
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = reviewTableView.dequeueReusableCell(withIdentifier:"reviewCell" , for: indexPath) as! TableViewCell
+        
+        cell.detailTextLabel?.text = "lkubgfg"
+        
+        
+        return cell
+    }
+    
+    
     override func viewWillAppear(_ animated: Bool) {
+        
+       // print("viewDidLoad count \(reviews.count)")
+
         DispatchQueue.main.async{
+        
             for index in 0..<self.reviews.count
             {
-                var str = self.reviews[index].content
-                str.append("\n\(self.reviews[index].content)")
-                self.reviewsLabel.text = str
+            
+                print("jfdalsdfbgalsiubf \(self.reviews.count)")
+                print(self.reviews[index].author)
+                print(self.reviews[index].content)
+                print("-----------------------------")
+               // var str = self.reviews[index].author
+                //str.append("\n\(self.reviews[index].content)")
+               // self.reviewTextView.text = self.reviews[index].author + self.reviews[index].content
             }
             self.view.reloadInputViews()
         }
@@ -53,9 +87,13 @@ class MovieDetailsViewController: UIViewController {
     func setMovie(movieObj : Movie)
         {
             myMovie = movieObj
-            //dataLayer.printMovie(movie: myMovie)
-            detailsPresenter.setDelegate(delegate: self)
-            detailsPresenter.getReviews(url: myMovie.reviewURL)
+            self.detailsPresenter.setDelegate(delegate: self)
+            self.detailsPresenter.getReviews(url: self.myMovie.reviewURL)
+            DispatchQueue.main.async{
+
+            
+            }
+
     }
     @IBAction func addToFavourite(_ sender: UIButton) {
         //print("Button Fav Clicked")
@@ -69,14 +107,8 @@ class MovieDetailsViewController: UIViewController {
             print("Movie added Status \(addStatus)")
         }
     }
-    /*ß 
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func setre(reviewArr: Array<Review>)  {
+        self.reviews = reviewArr
     }
-    */
 
 }

@@ -10,11 +10,25 @@ import Foundation
 extension MovieDetailsViewController: DetailsDelegate
 {
     func setReviews(reviewArr : Array<Review>) {
+        
+       /* for i in 0..<reviewArr.count
+        {
+            print(reviewArr[i].author)
+            print(reviewArr[i].content)
+            print("----------------------------")
+        }*/
        self.reviews = reviewArr
+        
+        self.setre(reviewArr : reviewArr)
         DispatchQueue.main.async{
             self.view.reloadInputViews()
         }
-        print("****** inside Extenstion *****\(reviews.count)")
+     /*  for i in 0..<reviews.count
+        {
+            print(reviews[i].author)
+            print(reviews[i].content)
+            print("----------------------------")
+        }*/
     }
     
     

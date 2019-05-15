@@ -14,6 +14,7 @@ private let reuseIdentifier = "homeCollectionCell"
 
 class HomeCollectionViewController: UICollectionViewController , UICollectionViewDelegateFlowLayout {
     
+  
     var movies : [Movie]! = [];
     let url : String = "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=dc9a86621980e480855fa9b593c738e7"
     let urlTopRated : String = "https://api.themoviedb.org/3/discover/movie?sort_by=top_rated.desc&api_key=dc9a86621980e480855fa9b593c738e7"
@@ -27,6 +28,9 @@ class HomeCollectionViewController: UICollectionViewController , UICollectionVie
     }
     override func viewWillAppear(_ animated: Bool)
     {
+    }
+    @IBAction func topRatedBtn(_ sender: Any) {
+        self.homePresenter.setURL(URL: self.urlTopRated)
     }
     
     override func didReceiveMemoryWarning() {
