@@ -9,12 +9,12 @@
 import Foundation
 extension MovieDetailsViewController: DetailsDelegate
 {
-    func setReviews(reviewStr: String) {
-       self.fullReviews = reviewStr
+    func setReviews(reviewArr : Array<Review>) {
+       self.reviews = reviewArr
         DispatchQueue.main.async{
             self.view.reloadInputViews()
         }
-        print("************ inside Extenstion *****\(fullReviews)")
+        print("*** inside Extenstion *****\(reviews.count)")
     }
     
     

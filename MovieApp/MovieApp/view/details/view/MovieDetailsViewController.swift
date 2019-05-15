@@ -20,6 +20,7 @@ class MovieDetailsViewController: UIViewController {
     @IBOutlet var titleLabel: UILabel!
     var fullReviews : String = "Intial Value"
     var movies : [NSManagedObject]!;
+    var reviews : [Review] = [];
     let dataLayer : DataLayer = DataLayer(appDelegate: UIApplication.shared.delegate as! AppDelegate)
     var myMovie : Movie = Movie ()
     var detailsPresenter : DetailsPresenter = DetailsPresenter()

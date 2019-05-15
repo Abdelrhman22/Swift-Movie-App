@@ -13,7 +13,8 @@ import SwiftyJSON
 
 class NetworkConnection : NetworkProtocol{
    
-    var movies : [Movie]!;
+    var movies  : [Movie]!;
+    var reviews : [Review]!;
     var arrRes = [[String:AnyObject]]() //Array of dictionary
     let dataLayer : DataLayer = DataLayer(appDelegate: UIApplication.shared.delegate as! AppDelegate)
     var homePresenter :HomePresenter?
@@ -87,6 +88,7 @@ class NetworkConnection : NetworkProtocol{
     }
     func getReviews(url : String)
     {
+        reviews = []
         Alamofire.request(url).responseJSON { (responseData) -> Void in
             if((responseData.result.value) != nil)
             {
@@ -94,22 +96,16 @@ class NetworkConnection : NetworkProtocol{
     
                 if let resData = swiftyJsonVar["results"].arrayObject {
                     self.arrReviewRes = resData as! [[String:AnyObject]]
-                    var authorFull : String = ""
-                    var contentFull : String = ""
                     for i in 0..<self.arrReviewRes.count
                     {
                         var dictReview = self.arrReviewRes[i]
-                        authorFull = authorFull + (dictReview["author"] as? String)! + "#"
-                        contentFull = contentFull + (dictReview["content"] as? String)! + "#"
+                        let reviewObject = Review()
+                        reviewObject.author  = (dictReview["author"] as? String)!
+                        reviewObject.content = (dictReview["content"] as? String)!
+                        self.reviews.append(reviewObject)
                     }
-                    var authorArr = authorFull.split(separator: "#")
-                    var contentArr = contentFull.split(separator: "#")
-                    
-                    for i in 0..<authorArr.count
-                    {
-                        self.fullReviews = self.fullReviews + authorArr[i] + "\n\n" + contentArr[i] + "\n\n\n\n"
-                    }
-                    self.detailsPresenter?.setReviews(str: self.fullReviews)
+                    print("Review of this Movie is +++ \(self.reviews.count)")
+                    self.detailsPresenter?.setReviews(reviewArr: self.reviews)
                 }
             }
         }

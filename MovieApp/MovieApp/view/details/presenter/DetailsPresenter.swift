@@ -23,8 +23,7 @@ class DetailsPresenter{
     func getReviews(url : String) {
         connection?.getReviews(url: url)
     }
-    func setReviews(str : String){
-        //print("==========  Reviews in Presenter\(str)")
-        detailsDelegate?.setReviews(reviewStr : str)
+    func setReviews(reviewArr : Array<Review>){
+        detailsDelegate?.setReviews(reviewArr : reviewArr)
     }
 }
