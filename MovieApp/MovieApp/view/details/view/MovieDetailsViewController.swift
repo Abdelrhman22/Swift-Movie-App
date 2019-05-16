@@ -12,12 +12,9 @@ import Alamofire
 import SDWebImage
 class MovieDetailsViewController: UIViewController , UITableViewDelegate , UITableViewDataSource{
 
+    @IBOutlet weak var reviewTable: UITableView!
+    @IBOutlet weak var trailerTable: UITableView!
     
-    
-    @IBOutlet var reviewTableView: UITableView!
-    
-    @IBOutlet var reviewTextView: UITextView!
-    @IBOutlet var reviewsLabel: UILabel!
     @IBOutlet var overviewLabel: UILabel!
     @IBOutlet var posterImageView: UIImageView!
     @IBOutlet var rateLabel: UILabel!
@@ -33,10 +30,13 @@ class MovieDetailsViewController: UIViewController , UITableViewDelegate , UITab
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        reviewTable.delegate = self
+        reviewTable.dataSource = self
+        trailerTable.delegate = self
+        trailerTable.dataSource = self
+        
         self.reviews = []
         self.trailers = []
-        
-       //print("viewDidLoad count \(reviews.count)")
         titleLabel.text = myMovie.title
         yearLabel.text = myMovie.releaseDate
         rateLabel.text = String( myMovie.voteAverage ) + " /10"
@@ -44,19 +44,39 @@ class MovieDetailsViewController: UIViewController , UITableViewDelegate , UITab
         overviewLabel.text = myMovie.overview
 
     }
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return reviews.count
-    }
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        var numberOfRows = 1
+        switch tableView {
+        case reviewTable:
+            numberOfRows = reviews.count
+        case trailerTable :
+            numberOfRows = trailers.count
+        default:
+            print("Error in numberOfRowsInSection")
+        }
+        return numberOfRows
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = reviewTableView.dequeueReusableCell(withIdentifier:"reviewCell" , for: indexPath) as! TableViewCell
         
-        cell.detailTextLabel?.text = "lkubgfg"
-        
-        
+        let cell : UITableViewCell = UITableViewCell()
+        switch tableView {
+        case reviewTable:
+            let cell = tableView.dequeueReusableCell(withIdentifier:"reviewCell" , for: indexPath) as! ReviewTableViewCell
+            cell.authorLabel.text = reviews[indexPath.row].author
+            cell.contentLabel.text = reviews[indexPath.row].content
+        case trailerTable:
+            let cell = tableView.dequeueReusableCell(withIdentifier:"trailerCell" , for: indexPath) as! TrailerTableViewCell
+            let image : UIImage = UIImage(named: "youtube.png")!
+            cell.trailerLabel.text = trailers[indexPath.row].name
+            cell.trailerImageView.image = image
+        default:
+            print("")
+        }
         return cell
     }
     
