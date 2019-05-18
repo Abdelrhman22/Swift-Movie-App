@@ -30,11 +30,11 @@ class MovieDetailsViewController: UIViewController , UITableViewDelegate , UITab
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        reviewTable.delegate = self
-        reviewTable.dataSource = self
-        trailerTable.delegate = self
-        trailerTable.dataSource = self
-        
+//        reviewTable.delegate = self
+//        reviewTable.dataSource = self
+//        trailerTable.delegate = self
+//        trailerTable.dataSource = self
+//
         self.reviews = []
         self.trailers = []
         titleLabel.text = myMovie.title
@@ -80,7 +80,16 @@ class MovieDetailsViewController: UIViewController , UITableViewDelegate , UITab
         return cell
     }
     
-    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch tableView {
+        case reviewTable:
+            return 200.0
+        case trailerTable:
+            return 200.0
+        default:
+            return 50.0
+        }
+    }
     override func viewWillAppear(_ animated: Bool) {
         
         print("viewWillAppear count \(reviews.count)")
@@ -136,9 +145,11 @@ class MovieDetailsViewController: UIViewController , UITableViewDelegate , UITab
     func setre(reviewArr: Array<Review>) {
         self.reviews = reviewArr
         print("Review Count \(self.reviews.count)")
+        reviewTable.reloadData()
     }
    func setTrai(trailerArr: Array<Trailer>) {
         self.trailers = trailerArr
         print("Trailer Count \(self.trailers.count)")
+    trailerTable.reloadData()
     }
 }
