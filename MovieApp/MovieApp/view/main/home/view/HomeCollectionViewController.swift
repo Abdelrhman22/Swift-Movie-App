@@ -14,7 +14,19 @@ private let reuseIdentifier = "homeCollectionCell"
 
 class HomeCollectionViewController: UICollectionViewController , UICollectionViewDelegateFlowLayout {
     
-  var counter = 1
+    @IBAction func switchMovies(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex
+        {
+        case 0:
+            
+           self.homePresenter.setURL(URL: self.url)
+        case 1:
+            self.homePresenter.setURL(URL: self.urlTopRated)
+        default:
+            break
+        }
+    }
+    var counter = 1
     var movies : [Movie]! = [];
     let url : String = "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=dc9a86621980e480855fa9b593c738e7"
     let urlTopRated : String = "https://api.themoviedb.org/3/discover/movie?sort_by=top_rated.desc&api_key=dc9a86621980e480855fa9b593c738e7"
@@ -28,32 +40,7 @@ class HomeCollectionViewController: UICollectionViewController , UICollectionVie
     override func viewWillAppear(_ animated: Bool)
     {
     }
-    @IBAction func topRatedBtn(_ sender: UIBarButtonItem!) {
-        if counter % 2 != 0
-        {
-        
-        self.homePresenter.setURL(URL: self.urlTopRated)
-        counter  = counter + 1
-           
-            //sender.setTitle("Most Popular", for: UIControlState.normal)
-           
 
-
-        }
-        else if counter % 2 == 0
-        {
-            self.homePresenter.setURL(URL: self.url)
-            counter  = counter + 1
-          
-            //sender.setTitle("Top Rated", for: UIControlState.normal)
-            
-
-
-        }
-        
-        
-    }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
@@ -62,7 +49,6 @@ class HomeCollectionViewController: UICollectionViewController , UICollectionVie
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         self.destinationVC = segue.destination as! MovieDetailsViewController
-        //destinationVC.setMovie(movieObj: movies![(self.collectionView?.indexPath(for: reuseIdentifier).row)!]);
     }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -89,37 +75,7 @@ class HomeCollectionViewController: UICollectionViewController , UICollectionVie
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         destinationVC.setMovie(movieObj: movies[indexPath.row]);
-        //print(movies[indexPath.row].title)
     }
-    // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
-    
-    }
-    */
+  
 
 }
